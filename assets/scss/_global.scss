@@ -1,0 +1,29 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  font-family: var(--font-family-main);
+  color: var(--color-text-primary);
+  background: var(--color-bg-main);
+}
+
+.app-shell {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100dvh;
+  margin-inline: auto;
+  background: var(--color-bg-main);
+  display: flex;
+  flex-direction: column;
+}
+
+.app-shell--blank {
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}

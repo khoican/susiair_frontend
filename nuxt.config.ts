@@ -1,6 +1,13 @@
 export default defineNuxtConfig({
   modules: ['@nuxt/a11y', '@nuxt/eslint', '@nuxt/image', '@nuxt/test-utils/module', '@pinia/nuxt'],
   compatibilityDate: '2025-07-15',
+  css: [
+    '@fontsource/plus-jakarta-sans/400.css',
+    '@fontsource/plus-jakarta-sans/500.css',
+    '@fontsource/plus-jakarta-sans/700.css',
+    '@fontsource/plus-jakarta-sans/800.css',
+    '~/assets/scss/main.scss'
+  ],
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
