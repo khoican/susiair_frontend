@@ -76,7 +76,6 @@ Ringkasan Decision Log (lengkap di [`docs/PRD.md`](docs/PRD.md) §16):
 - Halaman **More** (tab saat ini placeholder).
 - **Detail per-tanggal** dari sel kalender (saat ini placeholder "Detail page coming soon").
 - Tooling analytics (event tracking belum diputuskan).
-- Pembersihan dependency/modul tak terpakai.
 - Pertimbangan i18n & mode offline.
 
 ## Kontribusi

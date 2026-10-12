@@ -1,6 +1,10 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxt/a11y', '@nuxt/content', '@nuxt/eslint', '@nuxt/hints', '@nuxt/image', '@nuxt/scripts', '@nuxt/test-utils/module', '@nuxt/ui', '@ant-design-vue/nuxt', '@arkenv/nuxt/module', '@artmizu/nuxt-prometheus', '@askdoppler/nuxt', 'pinia-plugin-unstorage/nuxt', '@pinia/nuxt', '@pinia/colada-nuxt'],
+  modules: ['@nuxt/a11y', '@nuxt/eslint', '@nuxt/image', '@nuxt/test-utils/module', '@pinia/nuxt'],
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true }
+  devtools: { enabled: true },
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://susiairbackend-production.up.railway.app/api'
+    }
+  }
 })
