@@ -1,0 +1,14 @@
+.active-scale:active { transform: scale(0.97); }
+.active-scale-sm:active { transform: scale(0.94); }
+.fade-enter-active,
+.fade-leave-active,
+.toast-enter-active,
+.toast-leave-active {
+  transition: opacity 0.2s ease;
+}
+.fade-enter-from,
+.fade-leave-to,
+.toast-enter-from,
+.toast-leave-to {
+  opacity: 0;
+}

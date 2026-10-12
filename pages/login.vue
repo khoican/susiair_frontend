@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import { Eye, EyeOff } from 'lucide-vue-next'
+
 definePageMeta({ layout: 'blank' })
 
+const runtimeConfig = useRuntimeConfig()
 const auth = useAuthStore()
 const username = ref('')
 const password = ref('')
+const showPassword = ref(false)
 const loading = ref(false)
 const error = ref('')
 
@@ -27,14 +31,18 @@ async function onSubmit(): Promise<void> {
 
 <template>
   <form class="login" @submit.prevent="onSubmit">
-    <img class="login__logo" src="/logo.png" alt="Susi Air">
-
-    <h1 class="login__title">
-      Sign In
-    </h1>
+    <header class="login__brand">
+      <img class="login__logo" src="/logo.png" alt="Susi Air">
+      <h1 class="login__title">
+        Susi Air Pilot
+      </h1>
+      <p class="login__subtitle">
+        Flight hours, duty limits &amp; documents
+      </p>
+    </header>
 
     <label class="login__field">
-      <span>Username</span>
+      <span class="login__label">Username</span>
       <input
         v-model="username"
         type="text"
@@ -45,14 +53,25 @@ async function onSubmit(): Promise<void> {
     </label>
 
     <label class="login__field">
-      <span>Password</span>
-      <input
-        v-model="password"
-        type="password"
-        autocomplete="current-password"
-        required
-        @input="error = ''"
-      >
+      <span class="login__label">Password</span>
+      <span class="login__control">
+        <input
+          v-model="password"
+          :type="showPassword ? 'text' : 'password'"
+          autocomplete="current-password"
+          required
+          @input="error = ''"
+        >
+        <button
+          type="button"
+          class="login__toggle"
+          :aria-label="showPassword ? 'Hide password' : 'Show password'"
+          @click="showPassword = !showPassword"
+        >
+          <EyeOff v-if="showPassword" :size="18" />
+          <Eye v-else :size="18" />
+        </button>
+      </span>
     </label>
 
     <p v-if="error" class="login__error" role="alert">
@@ -62,78 +81,9 @@ async function onSubmit(): Promise<void> {
     <button class="login__submit" type="submit" :disabled="loading">
       {{ loading ? 'Signing in…' : 'Sign In' }}
     </button>
+
+    <p class="login__hint">
+      Demo — <strong>{{ runtimeConfig.public.demoUsername }}</strong> / <strong>{{ runtimeConfig.public.demoPassword }}</strong>
+    </p>
   </form>
 </template>
-
-<style scoped lang="scss">
-.login {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-
-  &__logo {
-    width: 120px;
-    margin: 0 auto;
-  }
-
-  &__title {
-    margin: 0;
-    text-align: center;
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--color-text-primary);
-  }
-
-  &__field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-
-    input {
-      padding: 12px 14px;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      font-family: inherit;
-      font-size: 14px;
-      color: var(--color-text-primary);
-      background: var(--color-card-surface);
-
-      &:focus {
-        outline: none;
-        border-color: var(--color-brand-red);
-      }
-    }
-  }
-
-  &__error {
-    margin: 0;
-    padding: 10px 14px;
-    border-radius: var(--radius-md);
-    background: rgba(230, 55, 87, 0.1);
-    color: var(--color-danger);
-    font-size: 13px;
-    font-weight: 600;
-  }
-
-  &__submit {
-    padding: 14px;
-    border: none;
-    border-radius: var(--radius-xl);
-    background: var(--color-brand-red);
-    color: #ffffff;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-
-    &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-  }
-}
-</style>

@@ -1,0 +1,71 @@
+.row {
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  background: var(--color-card-surface);
+  box-shadow: var(--shadow-card);
+}
+.row__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.row__title {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+.row__percent {
+  font-size: 11px;
+  font-weight: 700;
+}
+.row__percent--ok {
+  color: var(--color-text-secondary);
+}
+.row__percent--warn {
+  color: var(--color-warning);
+}
+.row__percent--over {
+  color: var(--color-danger);
+}
+.row__value {
+  margin: 6px 0 10px;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+.row__value--over {
+  color: var(--color-danger);
+}
+.row__limit {
+  margin-left: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+.row__track {
+  height: 6px;
+  border-radius: var(--radius-xl);
+  background: var(--color-border);
+  overflow: hidden;
+}
+.row__bar {
+  height: 100%;
+  border-radius: var(--radius-xl);
+}
+.row__bar--ok {
+  background: var(--color-brand-red);
+}
+.row__bar--warn {
+  background: var(--color-warning);
+}
+.row__bar--over {
+  background: var(--color-danger);
+}
+.row__remaining {
+  margin: 8px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}

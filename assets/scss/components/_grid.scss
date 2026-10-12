@@ -1,0 +1,59 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.grid__weekday {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  padding: 4px 0;
+}
+.grid__blank {
+  min-height: 44px;
+}
+.grid__cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--color-card-surface);
+  cursor: pointer;
+  transition: transform 0.08s ease;
+}
+.grid__cell:active {
+  transform: scale(0.97);
+}
+.grid__cell--duty {
+  background: var(--color-primary-navy);
+  color: #ffffff;
+}
+.grid__cell--weekend {
+  opacity: 0.85;
+}
+.grid__cell--today {
+  box-shadow: inset 0 0 0 2px var(--color-brand-red);
+}
+.grid__day {
+  font-size: 12px;
+  font-weight: 600;
+}
+.grid__base {
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+}
+.grid__indicator {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 800;
+}
