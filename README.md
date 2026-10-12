@@ -1,75 +1,84 @@
-# Nuxt Minimal Starter
+# Susi Air Pilot App — Frontend
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Aplikasi web **mobile-first** (Nuxt 3) untuk pilot Susi Air: memantau jam terbang terhadap batas duty, masa berlaku dokumen, dan jadwal bulanan. Frontend ini mengonsumsi REST API backend; tidak ada data mock di sisi klien.
 
-## Setup
+Dokumen sumber:
 
-Make sure to install dependencies:
+- [`docs/PRD.md`](docs/PRD.md) — kebutuhan produk, acceptance criteria, Decision Log, edge case (otoritas utama).
+- [`docs/API_SPEC.md`](docs/API_SPEC.md) — kontrak endpoint, envelope respons, sampel.
+- [`docs/DESIGN.md`](docs/DESIGN.md) — token visual, tipografi, spacing, shadow.
+
+## Setup & Instalasi
+
+Prasyarat:
+
+- Node.js 20+
+- pnpm
+
+Langkah:
 
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
+cp .env.example .env
 pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+Server dev berjalan di `http://localhost:3000`.
 
-Build the application for production:
+### Environment
+
+| Variabel                | Wajib | Default                                                  | Keterangan              |
+| ----------------------- | ----- | -------------------------------------------------------- | ----------------------- |
+| `NUXT_PUBLIC_API_BASE`  | tidak | `https://susiairbackend-production.up.railway.app/api`   | Base URL REST API backend |
+
+### Perintah
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+pnpm dev          # server dev (http://localhost:3000)
+pnpm build        # build produksi
+pnpm preview      # pratinjau build produksi
+pnpm test         # seluruh test (Vitest)
+pnpm test:unit    # project unit
+pnpm test:nuxt    # project nuxt (happy-dom)
+pnpm lint         # eslint .
+pnpm typecheck    # nuxt typecheck
 ```
 
-Locally preview production build:
+## Fitur
 
-```bash
-# npm
-npm run preview
+- **Sign In (`/login`)** — autentikasi username/password, JWT disimpan di cookie, error alert untuk kredensial salah.
+- **Home Dashboard (`/`)** — sapaan pilot + total jam terbang, 4 kartu batas (Daily/Weekly/Monthly/Annual), trend chart rolling sum dengan toggle range `1w`/`1m`/`3m`/`6m`/`1y`, daftar dokumen dengan badge urgensi, bottom navigation.
+- **Schedule (`/schedule`)** — kalender bulanan dengan navigasi bulan, warna pangkalan dinamis, indikator penyelesaian duty, dan legend.
 
-# pnpm
-pnpm preview
+Rincian acceptance criteria per fitur ada di [`docs/PRD.md`](docs/PRD.md) §6.
 
-# yarn
-yarn preview
+## Keputusan
 
-# bun
-bun run preview
-```
+Ringkasan Decision Log (lengkap di [`docs/PRD.md`](docs/PRD.md) §16):
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+| ID  | Keputusan |
+| --- | --------- |
+| D1  | Anchor date tetap `2026-05-15` menggantikan "hari ini" |
+| D2  | Semua kalkulasi jam terbang authoritative di backend |
+| D3  | No Local Mock — semua data dari REST API |
+| D4  | Token JWT disimpan di cookie key `auth_token` |
+| D5  | `limitLine`, `yMax`, `limit`, `badgeColor` berasal dari API |
+| D6  | Future zeroing — jam terbang tanggal `> 2026-05-15` dihitung `0.0` |
+| D7  | Badge urgensi dipercayakan ke API, compute hanya fallback |
+| D8  | Duty indicator memakai `isCompleted` dari API |
+| D9  | Field kalender memakai `base_name` |
+| D10 | Styling SCSS murni (bukan Tailwind / UI kit) |
+| D11 | Logout client-side tanpa endpoint backend |
+
+## Rencana Next Version
+
+- Fitur **Logbook** (tab saat ini placeholder).
+- Halaman **More** (tab saat ini placeholder).
+- **Detail per-tanggal** dari sel kalender (saat ini placeholder "Detail page coming soon").
+- Tooling analytics (event tracking belum diputuskan).
+- Pembersihan dependency/modul tak terpakai.
+- Pertimbangan i18n & mode offline.
+
+## Kontribusi
+
+Baca [`AGENTS.md`](AGENTS.md) sebelum menulis, mengubah, atau menghapus kode.
