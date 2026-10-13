@@ -7,11 +7,11 @@ defineProps<{
 </script>
 
 <template>
-  <ul class="legend">
-    <li v-for="item in legend" :key="item.code" class="legend__item">
-      <span class="legend__swatch" :style="{ background: item.color }" />
-      <span class="legend__code">{{ item.code }}</span>
-      <span class="legend__label">{{ item.label }}</span>
+  <ul class="m-0 flex list-none flex-col gap-2 p-0">
+    <li v-for="item in legend" :key="item.code" class="flex items-center gap-2">
+      <span class="h-4 w-4 shrink-0 rounded-sm" :style="{ background: item.color }" />
+      <span class="min-w-10 text-base font-bold text-primary">{{ item.code }}</span>
+      <span class="flex-1 truncate text-base text-secondary">{{ item.label }}</span>
     </li>
   </ul>
 </template>

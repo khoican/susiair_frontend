@@ -1,12 +1,12 @@
-import type { ApiError } from '~/types/api'
+import { extractApiMessage } from '~/utils/api'
 
 /**
  * Membuat instance `$fetch` terkonfigurasi untuk backend Susi Air.
  *
  * Instance otomatis: menyisipkan header `Authorization: Bearer <token>` dari
  * cookie `auth_token`, meng-unwrap envelope sukses `{ statusCode, data }`
- * menjadi `data`, menormalkan `message` error (string|string[]) menjadi string,
- * dan melakukan logout terpusat saat menerima `401`.
+ * menjadi `data`, melempar `Error` berisi `message` API (string|string[]
+ * dinormalisasi menjadi string), dan melakukan logout terpusat saat menerima `401`.
  *
  * @returns Instance `$fetch` dengan `baseURL` dari `runtimeConfig.public.apiBase`.
  */
@@ -29,19 +29,14 @@ export function useApi() {
         response._data = body.data
       }
     },
-    onResponseError({ response, error }) {
-      const body = response._data as ApiError | null
-      if (error) {
-        const message = body?.message
-        if (Array.isArray(message)) {
-          error.message = message.join(', ')
-        } else if (typeof message === 'string') {
-          error.message = message
-        }
-      }
+    onResponseError({ response }) {
       if (response.status === 401 && token.value) {
         token.value = null
         navigateTo('/login')
+      }
+      const message = extractApiMessage(response._data)
+      if (message) {
+        throw new Error(message)
       }
     }
   })

@@ -21,28 +21,40 @@ const remainingLabel = computed(() => {
   })
   return remaining.value >= 0 ? `${value} hrs left` : `${value} hrs over`
 })
+
+const STATUS_TEXT: Record<string, string> = {
+  ok: 'text-success',
+  warn: 'text-warning',
+  over: 'text-danger'
+}
+
+const STATUS_BAR: Record<string, string> = {
+  ok: 'bg-success',
+  warn: 'bg-warning',
+  over: 'bg-danger'
+}
 </script>
 
 <template>
-  <article class="row">
-    <div class="row__head">
-      <p class="row__title">
+  <article class="shadow-card mb-1 flex items-start justify-between gap-4 rounded-md border-l-4 bg-surface p-4 last:mb-0">
+    <div class="flex min-w-0 flex-1 flex-col gap-1">
+      <p class="m-0 flex items-center gap-1 text-base font-bold leading-snug text-primary">
         {{ title }}
       </p>
-      <span class="row__percent" :class="`row__percent--${status}`">{{ percent }}</span>
+      <p class="m-0 text-2xs leading-snug text-secondary">
+        {{ remainingLabel }}
+      </p>
     </div>
 
-    <p class="row__value">
-      <span :class="{ 'row__value--over': status === 'over' }">{{ formatHours(current) }}</span>
-      <span class="row__limit">/ {{ limit }}</span>
-    </p>
-
-    <div class="row__track">
-      <div class="row__bar" :class="`row__bar--${status}`" :style="{ width }" />
+    <div class="flex shrink-0 flex-col items-end gap-1">
+      <span class="text-base font-extrabold" :class="STATUS_TEXT[status]">{{ percent }}</span>
+      <p class="m-0">
+        <span :class="{ 'text-danger': status === 'over' }">{{ formatHours(current) }}</span>
+        <span class="text-secondary"> / {{ limit }}</span>
+      </p>
+      <div class="h-2 w-28 overflow-hidden rounded-full bg-muted">
+        <div class="h-full rounded-full transition-all duration-300" :class="STATUS_BAR[status]" :style="{ width }" />
+      </div>
     </div>
-
-    <p class="row__remaining">
-      {{ remainingLabel }}
-    </p>
   </article>
 </template>

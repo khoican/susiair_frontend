@@ -6,12 +6,6 @@ export interface ApiEnvelope<T> {
   message?: string | string[]
 }
 
-export interface ApiError {
-  statusCode: number
-  message: string | string[]
-  error: string
-}
-
 export interface LoginPilot {
   id: string
   name: string

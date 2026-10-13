@@ -1,3 +1,7 @@
+.shadow-none { box-shadow: none; }
+.shadow-xs { box-shadow: 0 1px 2px rgba(14, 33, 56, 0.05); }
 .shadow-card { box-shadow: var(--shadow-card); }
 .shadow-elev { box-shadow: var(--shadow-elevated); }
-.inset-today { box-shadow: inset 0 0 0 2px var(--color-brand-red); }
+.shadow-elevated { box-shadow: var(--shadow-elevated); }
+.shadow-top { box-shadow: 0 -0.125rem 0.75rem rgba(14, 33, 56, 0.06); }
+.shadow-ring-brand { box-shadow: 0 0 0 4px rgba(230, 55, 87, 0.2); }

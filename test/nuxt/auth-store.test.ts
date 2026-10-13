@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { createPinia, setActivePinia } from 'pinia'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { useAuthStore } from '~/stores/auth'
 
 const { caller, useApiMock, navigateMock } = vi.hoisted(() => ({
@@ -28,11 +28,11 @@ describe('useAuthStore', () => {
     })
 
     const store = useAuthStore()
-    await store.login('johndoe', 'passjhondoe')
+    await store.login('johndoe', 'susiairtest')
 
     expect(caller).toHaveBeenCalledWith('/auth/login', {
       method: 'POST',
-      body: { username: 'johndoe', password: 'passjhondoe' }
+      body: { username: 'johndoe', password: 'susiairtest' }
     })
     expect(store.token).toBe('jwt-token')
     expect(store.isAuthenticated).toBe(true)

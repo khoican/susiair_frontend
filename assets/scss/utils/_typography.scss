@@ -1,17 +1,111 @@
-.text-xs { font-size: 9px; }
-.text-11 { font-size: 11px; }
-.text-12 { font-size: 12px; }
-.text-13 { font-size: 13px; }
-.text-14 { font-size: 14px; }
-.text-15 { font-size: 15px; }
-.text-16 { font-size: 16px; }
-.text-20 { font-size: 20px; }
-.text-40 { font-size: 40px; }
-.font-600 { font-weight: 600; }
-.font-700 { font-weight: 700; }
-.font-800 { font-weight: 800; }
-.leading-1 { line-height: 1; }
-.tracking-02 { letter-spacing: 0.02em; }
-.text-center { text-align: center; }
-.whitespace-nowrap { white-space: nowrap; }
-.truncate { overflow: hidden; text-overflow: ellipsis; }
+$text-sizes: (
+  xs: 0.75rem,
+  sm: 0.875rem,
+  base: 1rem,
+  lg: 1.125rem,
+  xl: 1.25rem,
+  2xl: 1.5rem,
+  3xl: 1.75rem,
+  4xl: 2.25rem,
+  5xl: 3rem,
+);
+
+@each $name, $value in $text-sizes {
+  .text-#{$name} {
+    font-size: $value;
+  }
+}
+
+.font-normal {
+  font-weight: 400;
+}
+.font-medium {
+  font-weight: 500;
+}
+.font-semibold {
+  font-weight: 600;
+}
+.font-bold {
+  font-weight: 700;
+}
+.font-extrabold {
+  font-weight: 800;
+}
+
+.leading-none {
+  line-height: 1;
+}
+.leading-tight {
+  line-height: 1.25;
+}
+.leading-snug {
+  line-height: 1.375;
+}
+.leading-normal {
+  line-height: 1.5;
+}
+.leading-relaxed {
+  line-height: 1.625;
+}
+
+.tracking-tight {
+  letter-spacing: -0.025em;
+}
+.tracking-normal {
+  letter-spacing: 0;
+}
+.tracking-wide {
+  letter-spacing: 0.025em;
+}
+.tracking-wider {
+  letter-spacing: 0.05em;
+}
+.tracking-widest {
+  letter-spacing: 0.1em;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+.capitalize {
+  text-transform: capitalize;
+}
+.normal-case {
+  text-transform: none;
+}
+.italic {
+  font-style: italic;
+}
+.underline {
+  text-decoration: underline;
+}
+.no-underline {
+  text-decoration: none;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+.whitespace-pre-wrap {
+  white-space: pre-wrap;
+}
+.break-words {
+  overflow-wrap: break-word;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+.text-2xs {
+  font-size: 0.6875rem;
+}
+
+.text-nowrap {
+  white-space: nowrap;
+}

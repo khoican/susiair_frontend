@@ -30,7 +30,7 @@ ada di `docs/PRD.md`; dokumen ini ringkasan cara pakai + sampel response.
   Authorization: Bearer <accessToken>
   ```
 
-- Kredensial demo: `username` = `johndoe`, `password` = `passjhondoe`.
+- Kredensial demo: `username` = `johndoe`, `password` = `susiairtest`.
 
 ## 2. Autentikasi
 
@@ -81,7 +81,7 @@ Contoh:
 ```bash
 curl -X POST /api/auth/login \
   -H 'Content-Type: application/json' \
-  -d '{"username":"johndoe","password":"passjhondoe"}'
+  -d '{"username":"johndoe","password":"susiairtest"}'
 ```
 
 Ambil `accessToken` dari respons untuk header `Authorization` pada endpoint berikut.
@@ -388,6 +388,6 @@ curl "/api/schedules?year=2026&month=05" -H "Authorization: Bearer <token>"
 - **Zeroing masa depan** — jam terbang dengan tanggal `> 2026-05-15` dihitung `0.0` (data mock hanya sampai `2026-05-31`).
 - **Rolling sum** = total jam pada rentang `[T - (windowDays - 1), T]`.
 - **Bulat 1 desimal** pada cards, `current`, `hours`, dan `sum` grafik.
-- Kredensial demo hardcoded untuk assessment: `johndoe` / `passjhondoe`.
+- Kredensial demo hardcoded untuk assessment: `johndoe` / `susiairtest`.
 
 Kontrak lengkap, acceptance criteria, dan riwayat keputusan: `docs/PRD.md`.

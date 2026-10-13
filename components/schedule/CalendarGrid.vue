@@ -1,32 +1,39 @@
 <script setup lang="ts">
-import { Check } from 'lucide-vue-next'
-import type { ScheduleItem } from '~/types/api'
+import { Check } from "lucide-vue-next";
+import type { ScheduleItem } from "~/types/api";
 
-const props = withDefaults(defineProps<{
-  year: number
-  month: number
-  schedules: ScheduleItem[]
-  anchor?: string
-}>(), {
-  anchor: '2026-05-15'
-})
+const props = withDefaults(
+  defineProps<{
+    year: number;
+    month: number;
+    schedules: ScheduleItem[];
+    anchor?: string;
+  }>(),
+  {
+    anchor: "2026-05-15",
+  },
+);
 
 const emit = defineEmits<{
-  select: [iso: string]
-}>()
+  select: [iso: string];
+}>();
 
-const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const leadingBlanks = computed(() => new Date(Date.UTC(props.year, props.month - 1, 1)).getUTCDay())
-const daysInMonth = computed(() => new Date(Date.UTC(props.year, props.month, 0)).getUTCDate())
+const leadingBlanks = computed(() =>
+  new Date(Date.UTC(props.year, props.month - 1, 1)).getUTCDay(),
+);
+const daysInMonth = computed(() =>
+  new Date(Date.UTC(props.year, props.month, 0)).getUTCDate(),
+);
 
 const byDay = computed(() => {
-  const map = new Map<number, ScheduleItem>()
+  const map = new Map<number, ScheduleItem>();
   for (const item of props.schedules) {
-    map.set(Number(item.duty_date.slice(8, 10)), item)
+    map.set(Number(item.duty_date.slice(8, 10)), item);
   }
-  return map
-})
+  return map;
+});
 
 /**
  * Menghitung sisa tugas yang belum tercatat logbook.
@@ -35,7 +42,7 @@ const byDay = computed(() => {
  * @returns Jumlah sisa (`count_schedules - count_logbooks`), minimal 0.
  */
 function remaining(item: ScheduleItem): number {
-  return Math.max(item.count_schedules - item.count_logbooks, 0)
+  return Math.max(item.count_schedules - item.count_logbooks, 0);
 }
 
 /**
@@ -45,7 +52,7 @@ function remaining(item: ScheduleItem): number {
  * @returns `true` bila tugas dianggap selesai.
  */
 function completed(item: ScheduleItem): boolean {
-  return item.isCompleted ?? item.count_logbooks === item.count_schedules
+  return item.isCompleted ?? item.count_logbooks === item.count_schedules;
 }
 
 /**
@@ -55,7 +62,7 @@ function completed(item: ScheduleItem): boolean {
  * @returns String `YYYY-MM-DD`.
  */
 function isoDate(day: number): string {
-  return `${props.year}-${String(props.month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+  return `${props.year}-${String(props.month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
 
 /**
@@ -65,8 +72,8 @@ function isoDate(day: number): string {
  * @returns `true` bila hari Sabtu atau Minggu.
  */
 function isWeekend(day: number): boolean {
-  const column = (leadingBlanks.value + day - 1) % 7
-  return column === 0 || column === 6
+  const column = (leadingBlanks.value + day - 1) % 7;
+  return column === 0 || column === 6;
 }
 
 /**
@@ -76,13 +83,18 @@ function isWeekend(day: number): boolean {
  * @returns `true` bila cocok dengan anchor.
  */
 function isToday(day: number): boolean {
-  return isoDate(day) === props.anchor
+  return isoDate(day) === props.anchor;
 }
 </script>
 
 <template>
-  <div class="grid">
-    <span v-for="day in WEEKDAYS" :key="day" class="grid__weekday">{{ day }}</span>
+  <div class="grid grid-cols-7 gap-1 p-4">
+    <span
+      v-for="day in WEEKDAYS"
+      :key="day"
+      class="grid__weekday p-1 text-center text-2xs font-bold uppercase tracking-wider leading-tight text-secondary"
+      >{{ day }}</span
+    >
 
     <span v-for="n in leadingBlanks" :key="`blank-${n}`" class="grid__blank" />
 
@@ -90,19 +102,34 @@ function isToday(day: number): boolean {
       v-for="day in daysInMonth"
       :key="day"
       type="button"
-      class="grid__cell"
+      class="grid__cell relative flex cursor-pointer flex-col items-center justify-center gap-1 rounded-sm border border-transparent p-1 font-inherit transition active-scale-95"
       :class="{
-        'grid__cell--duty': byDay.has(day),
-        'grid__cell--weekend': isWeekend(day),
-        'grid__cell--today': isToday(day)
+        'grid__cell--duty text-white': byDay.has(day),
+        'grid__cell--weekend bg-white text-secondary':
+          !byDay.has(day) && isWeekend(day),
+        'grid__cell--today border-brand bg-brand-soft shadow-ring-brand':
+          isToday(day),
+        'bg-container-low': !byDay.has(day) && !isToday(day),
       }"
-      :style="byDay.has(day) ? { background: byDay.get(day)!.base_color } : undefined"
+      :style="
+        byDay.has(day) ? { background: byDay.get(day)!.base_color } : undefined
+      "
       @click="emit('select', isoDate(day))"
     >
-      <!-- ponytail: teks selalu putih di atas base_color; warna terang bisa kurang kontras — ganti ke warna teks berbasis luminance bila perlu -->
-      <span class="grid__day">{{ day }}</span>
-      <span class="grid__base">{{ byDay.get(day)?.base_name }}</span>
-      <span v-if="byDay.has(day)" class="grid__indicator">
+      <span
+        class="text-base font-semibold leading-none"
+        :class="byDay.has(day) ? 'font-bold' : 'text-primary'"
+        >{{ day }}</span
+      >
+      <span
+        class="text-2xs"
+        :class="byDay.has(day) ? 'text-white-70' : 'text-secondary'"
+        >{{ byDay.get(day)?.base_name }}</span
+      >
+      <span
+        v-if="byDay.has(day)"
+        class="flex items-center justify-center rounded-full text-xs font-bold text-white"
+      >
         <Check v-if="completed(byDay.get(day)!)" :size="12" />
         <template v-else>{{ remaining(byDay.get(day)!) }}</template>
       </span>

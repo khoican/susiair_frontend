@@ -1,20 +1,98 @@
-.text-primary { color: var(--color-text-primary); }
-.text-secondary { color: var(--color-text-secondary); }
-.text-white { color: #ffffff; }
-.text-danger { color: var(--color-danger); }
-.text-warning { color: var(--color-warning); }
-.text-success { color: var(--color-success); }
-.text-white-70 { color: rgba(255, 255, 255, 0.7); }
-.bg-bg { background: var(--color-bg-main); }
-.bg-surface { background: var(--color-card-surface); }
-.bg-navy { background: var(--color-primary-navy); }
-.bg-danger { background: var(--color-danger); }
-.bg-warning { background: var(--color-warning); }
-.bg-success { background: var(--color-success); }
-.bg-red { background: var(--color-brand-red); }
-.bg-muted { background: var(--color-surface-muted); }
-.bg-danger-soft { background: var(--color-danger-soft); }
-.bg-warning-soft { background: var(--color-warning-soft); }
-.bg-success-soft { background: var(--color-success-soft); }
-.bg-brand-soft { background: var(--color-brand-soft); }
-.bg-cyan { background: var(--color-chart-accent); }
+$text-colors: (
+  "primary": var(--color-text-primary),
+  "secondary": var(--color-text-secondary),
+  "muted": var(--color-text-secondary),
+  "navy": var(--color-primary-navy),
+  "brand": var(--color-brand-red),
+  "danger": var(--color-danger),
+  "warning": var(--color-warning),
+  "success": var(--color-success),
+  "chart": var(--color-chart-accent),
+  "white": #ffffff,
+  "surface": var(--color-on-surface),
+  "on-surface-variant": var(--color-on-surface-variant),
+);
+
+@each $name, $value in $text-colors {
+  .text-#{$name} {
+    color: $value;
+  }
+}
+
+$bg-colors: (
+  "bg": var(--color-bg-main),
+  "transparent": transparent,
+  "surface": var(--color-card-surface),
+  "navy": var(--color-primary-navy),
+  "brand": var(--color-brand-red),
+  "danger": var(--color-danger),
+  "warning": var(--color-warning),
+  "success": var(--color-success),
+  "chart": var(--color-chart-accent),
+  "white": #ffffff,
+  "muted": var(--color-surface-muted),
+  "container": var(--color-surface-container),
+  "container-low": var(--color-surface-container-low),
+  "container-high": var(--color-surface-container-high),
+  "container-lowest": var(--color-surface-container-lowest),
+  "container-highest": var(--color-surface-container-highest),
+  "danger-soft": var(--color-danger-soft),
+  "warning-soft": var(--color-warning-soft),
+  "success-soft": var(--color-success-soft),
+  "brand-soft": var(--color-brand-soft),
+  "primary-container": var(--color-primary-container),
+  "secondary-container": var(--color-secondary-container),
+);
+
+@each $name, $value in $bg-colors {
+  .bg-#{$name} {
+    background-color: $value;
+  }
+}
+
+$border-colors: (
+  "default": var(--color-border),
+  "navy": var(--color-primary-navy),
+  "brand": var(--color-brand-red),
+  "danger": var(--color-danger),
+  "success": var(--color-success),
+  "warning": var(--color-warning),
+  "transparent": transparent,
+);
+
+@each $name, $value in $border-colors {
+  .border-#{$name} {
+    border-color: $value;
+  }
+}
+
+.text-white-70 {
+  color: rgba(255, 255, 255, 0.7);
+}
+.text-white-50 {
+  color: rgba(255, 255, 255, 0.5);
+}
+.bg-white-5 {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.bg-white-10 {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.bg-dark-4 {
+  background-color: rgba(14, 33, 56, 0.04);
+}
+.bg-dark-8 {
+  background-color: rgba(14, 33, 56, 0.08);
+}
+.bg-primary-fixed {
+  background-color: var(--color-primary-fixed);
+}
+.bg-secondary-fixed-dim {
+  background-color: var(--color-secondary-fixed-dim);
+}
+.bg-focus-ring {
+  background-color: var(--color-focus-ring);
+}
+.bg-white-90 {
+  background-color: rgba(255, 255, 255, 0.9);
+}

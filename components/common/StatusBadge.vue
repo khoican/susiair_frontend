@@ -38,7 +38,7 @@ const badgeColor = computed(() => props.color || FALLBACK_COLORS[badgeStatus.val
 </script>
 
 <template>
-  <span class="badge" :style="{ background: badgeColor }">
+  <span class="whitespace-nowrap rounded-full px-3 py-1 text-xs font-bold text-white" :style="{ background: badgeColor }">
     {{ label }}
   </span>
 </template>

@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('auth', () => {
    * @param password Password pilot.
    * @throws {Error} Bila kredensial salah (`401`) atau validasi gagal (`400`).
    */
-  async function login(username: string, password: string): Promise<void> {
+  async function login(username: string, password: string): Promise<LoginResult> {
     const res = await useApi()<LoginResult>('/auth/login', {
       method: 'POST',
       body: { username, password }
@@ -25,6 +25,7 @@ export const useAuthStore = defineStore('auth', () => {
     token.value = res.accessToken
     pilot.value = res.pilot
     await navigateTo('/')
+    return res
   }
 
   /**
